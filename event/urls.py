@@ -5,6 +5,6 @@ from events.views import home, details, dashboard
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", home, name='home'),
-    path("details", details, name='details'),
+    path("details/<int:id>", details, name='details'),
     path("dashboard", dashboard, name='dashboard'),
 ]

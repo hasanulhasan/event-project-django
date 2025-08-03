@@ -71,7 +71,7 @@
                 <p class="text-sm font-medium text-gray-600">
                   Total Participants
                 </p>
-                <p class="text-2xl font-bold text-gray-900">295</p>
+                <p class="text-2xl font-bold text-gray-900">{{total_participants}}</p>
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-gray-600">Total Events</p>
-                <p class="text-2xl font-bold text-gray-900">2</p>
+                <p class="text-2xl font-bold text-gray-900">{{total_events}}</p>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-gray-600">Upcoming Events</p>
-                <p class="text-2xl font-bold text-gray-900">1</p>
+                <p class="text-2xl font-bold text-gray-900">{{upcoming_events}}</p>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-gray-600">Past Events</p>
-                <p class="text-2xl font-bold text-gray-900">1</p>
+                <p class="text-2xl font-bold text-gray-900">{{past_events}}</p>
               </div>
             </div>
           </div>
@@ -170,26 +170,28 @@
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
                 <!-- Event 1 -->
+
+                {% for event in events %}
                 <tr class="hover:bg-gray-50">
                   <td
                     class="px-6 py-4 whitespace-nowrap font-medium text-gray-900"
                   >
-                    Tech Conference 2025
+                    {{ event.name }}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <div>Aug 15, 2025</div>
-                    <div class="text-xs text-gray-400">09:00</div>
+                    <div>{{event.date}}</div>
+                    <div class="text-xs text-gray-400">{{event.time}}</div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Convention Center
+                    {{ event.location }}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    <div class="flex items-center">250</div>
+                    <div class="flex items-center">{{ event.participants.count }} </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span
                       class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full"
-                      >Conference</span
+                      >{{event.category}}</span
                     >
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
@@ -202,9 +204,11 @@
                     Edit | Delete
                   </td>
                 </tr>
+                {% endfor %}
 
+            
                 <!-- Event 2 -->
-                <tr class="hover:bg-gray-50">
+                {% comment %} <tr class="hover:bg-gray-50">
                   <td
                     class="px-6 py-4 whitespace-nowrap font-medium text-gray-900"
                   >
@@ -235,7 +239,7 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
                     Edit | Delete
                   </td>
-                </tr>
+                </tr> {% endcomment %}
               </tbody>
             </table>
           </div>

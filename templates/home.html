@@ -82,27 +82,29 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Event card start -->
-          <div class="bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600/10 rounded-2xl overflow-hidden transition transform hover:-translate-y-2 hover:shadow-xl">
+            {% for event in events %}
+            <div class="bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600/10 rounded-2xl overflow-hidden transition transform hover:-translate-y-2 hover:shadow-xl">
             <div class="h-48 bg-gradient-to-br from-pink-600 to-purple-600 relative">
-              <div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg px-3 py-1 text-sm">25 Participants</div>
+              <div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg px-3 py-1 text-sm">{{ event.participants.count }} Participants</div>
             </div>
             <div class="p-6">
               <div class="flex items-center text-sm text-slate-400 mb-2">
-                <span>Sep 5, 2025</span>
+                <span>{{event.date}}</span>
                 <span class="mx-2">•</span>
-                <span>Los Angeles, CA</span>
+                <span> {{ event.location }}</span>
               </div>
-              <h3 class="text-xl font-semibold mb-2 text-white">Contemporary Art Exhibition</h3>
+              <h3 class="text-xl font-semibold mb-2 text-white">{{ event.name }}</h3>
               <p class="text-slate-400 mb-4">Explore groundbreaking works by emerging and established contemporary artists.</p>
               <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                   <div class="w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full"></div>
-                  <span class="text-sm text-slate-300">ArtSpace Gallery</span>
+                  <span class="text-sm text-slate-300">{{event.category}}</span>
                 </div>
-                <a href='{% url "details" %}' class="bg-pink-500 hover:bg-pink-600 px-4 py-2 rounded-lg text-sm font-medium transition">View Details</a>
+                <a href='{% url "details" event.id %}' class="bg-pink-500 hover:bg-pink-600 px-4 py-2 rounded-lg text-sm font-medium transition">View Details</a>
               </div>
             </div>
           </div>
+            {% endfor %}
           <!-- Event card start -->
         </div>
       </div>

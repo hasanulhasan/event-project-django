@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
     <!-- Header -->
-        <nav class="fixed top-0 w-full z-50 backdrop-blur bg-slate-900/80 border-b border-slate-800">
+    <nav class="fixed top-0 w-full z-50 backdrop-blur bg-slate-900/80 border-b border-slate-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center space-x-2">
@@ -37,11 +37,11 @@
             <div class="flex flex-col lg:flex-row gap-8">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-4">
-                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold animate-pulse-glow">Live Event</span>
-                        <span class="text-purple-300 text-sm">Marketing & Technology</span>
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold animate-pulse-glow">{{event.category}}</span>
+                        {% comment %} <span class="text-purple-300 text-sm">{{event.category}}</span> {% endcomment %}
                     </div>
                     <h2 class="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-                        Digital Marketing Summit 2025
+                        {{ event.name }}
                     </h2>
                     <p class="text-purple-100 text-lg mb-6 leading-relaxed">
                         Join industry leaders, marketing professionals, and innovators for an immersive experience exploring the future of digital marketing, AI-driven strategies, and emerging technologies that will reshape the industry.
@@ -84,14 +84,14 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <p class="text-sm text-purple-200">Start Date</p>
-                                    <p class="text-white font-semibold text-lg">March 15, 2025</p>
-                                    <p class="text-purple-200">9:00 AM PST</p>
+                                    <p class="text-white font-semibold text-lg">{{event.date}}</p>
+                                    <p class="text-purple-200">{{event.time}}</p>
                                 </div>
-                                <div>
+                                {% comment %} <div>
                                     <p class="text-sm text-purple-200">End Date</p>
                                     <p class="text-white font-semibold text-lg">March 17, 2025</p>
                                     <p class="text-purple-200">6:00 PM PST</p>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -105,8 +105,8 @@
                             Location
                         </h4>
                         <div class="bg-gradient-to-r from-blue-800/50 to-purple-800/50 rounded-xl p-4">
-                            <p class="text-white font-semibold text-lg mb-2">San Francisco Convention Center</p>
-                            <p class="text-purple-200 mb-3">747 Howard Street, San Francisco, CA 94103</p>
+                            <p class="text-white font-semibold text-lg mb-3">{{ event.location }}</p>
+                            {% comment %} <p class="text-purple-200 mb-3">747 Howard Street, San Francisco, CA 94103</p> {% endcomment %}
                             <div class="flex flex-wrap gap-3">
                                 <span class="bg-blue-500/30 text-blue-200 px-3 py-1 rounded-full text-sm">Main Hall A</span>
                                 <span class="bg-green-500/30 text-green-200 px-3 py-1 rounded-full text-sm">Parking Available</span>
@@ -126,22 +126,22 @@
                         <div class="bg-gradient-to-r from-green-800/50 to-blue-800/50 rounded-xl p-4">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                                 <div class="text-center">
-                                    <p class="text-3xl font-bold text-white">1,247</p>
+                                    <p class="text-3xl font-bold text-white">{{ event.participants.count }}</p>
                                     <p class="text-green-200 text-sm">Registered</p>
                                 </div>
                                 <div class="text-center">
-                                    <p class="text-3xl font-bold text-white">892</p>
+                                    <p class="text-3xl font-bold text-white">{{ event.participants.count }}</p>
                                     <p class="text-blue-200 text-sm">Confirmed</p>
                                 </div>
                                 <div class="text-center">
-                                    <p class="text-3xl font-bold text-white">1,500</p>
+                                    <p class="text-3xl font-bold text-white">150</p>
                                     <p class="text-purple-200 text-sm">Capacity</p>
                                 </div>
                             </div>
                             <div class="w-full bg-gray-700 rounded-full h-3 mb-2">
-                                <div class="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full" style="width: 83%"></div>
+                                <div class="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full" style="width: 23%"></div>
                             </div>
-                            <p class="text-sm text-purple-200">83% capacity reached</p>
+                            <p class="text-sm text-purple-200">23% capacity reached</p>
                         </div>
                     </div>
                 </div>
