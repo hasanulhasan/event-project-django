@@ -1,0 +1,246 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+  <body class="min-h-screen bg-gray-50">
+    <nav
+      class="fixed top-0 w-full z-50 backdrop-blur bg-slate-900/80 border-b border-slate-800"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-lg">E</span>
+            </div>
+            <span
+              class="text-xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent"
+              >EventFlow</span
+            >
+          </div>
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href='{% url "home" %}'
+              class="text-slate-300 hover:text-white transition-colors"
+              >Home</a
+            >
+            <a
+              href="#"
+              class="text-slate-300 hover:text-white transition-colors"
+              >Events</a
+            >
+            <a
+              href="#"
+              class="text-slate-300 hover:text-white transition-colors"
+              >About</a
+            >
+            <a
+              href='{% url "dashboard" %}'
+              class="text-slate-300 hover:text-white transition-colors"
+              >Dashboard</a
+            >
+          </div>
+          <div class="flex items-center space-x-4">
+            <button
+              class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 px-6 py-2 rounded-lg font-medium shadow-lg"
+            >
+              Get Started
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="p-6 mt-14">
+      <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p class="text-gray-600">Manage and track events in one place</p>
+        </div>
+
+        <!-- Metrics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white rounded-lg shadow-sm border p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-600">
+                  Total Participants
+                </p>
+                <p class="text-2xl font-bold text-gray-900">295</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm border p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-600">Total Events</p>
+                <p class="text-2xl font-bold text-gray-900">2</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm border p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-600">Upcoming Events</p>
+                <p class="text-2xl font-bold text-gray-900">1</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm border p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-600">Past Events</p>
+                <p class="text-2xl font-bold text-gray-900">1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Events Table -->
+        <div class="bg-white rounded-lg shadow-sm border">
+          <div class="p-6 border-b border-gray-200">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+            >
+              <h2 class="text-xl font-semibold text-gray-900">Events List</h2>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <div class="relative">
+                  <input
+                    type="text"
+                    placeholder="Search events..."
+                    class="pl-4 pr-4 py-2 border border-gray-300 rounded-lg"
+                  />
+                </div>
+                <a href="/form.html">
+                  <button
+                    class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg"
+                  >
+                    Add Event
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Event Name
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Date & Time
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Location
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Participants
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Category
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Status
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <!-- Event 1 -->
+                <tr class="hover:bg-gray-50">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap font-medium text-gray-900"
+                  >
+                    Tech Conference 2025
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div>Aug 15, 2025</div>
+                    <div class="text-xs text-gray-400">09:00</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Convention Center
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <div class="flex items-center">250</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full"
+                      >Conference</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-600 rounded-full"
+                      >Upcoming</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                    Edit | Delete
+                  </td>
+                </tr>
+
+                <!-- Event 2 -->
+                <tr class="hover:bg-gray-50">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap font-medium text-gray-900"
+                  >
+                    Marketing Workshop
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div>Jul 20, 2025</div>
+                    <div class="text-xs text-gray-400">14:00</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Training Room A
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <div class="flex items-center">45</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full"
+                      >Workshop</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full"
+                      >Past</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                    Edit | Delete
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
