@@ -2,12 +2,21 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from events.models import Event, Category, Participant
 import datetime
+from django.db.models import Q
 
 def home(request):
+    query = request.GET.get('q', '')
     events = Event.objects.select_related('category').prefetch_related('participants').all()
+
+    if query:
+        events = events.filter(
+            Q(name__icontains=query) | Q(location__icontains=query)
+        )
+
     context = {
-        'events': events
-        }
+        'events': events,
+        'query': query,
+    }
     return render(request, "home.html", context)
 
 def details(request, id):
