@@ -83,8 +83,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Event card start -->
             {% for event in events %}
-            <div class="bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600/10 rounded-2xl overflow-hidden transition transform hover:-translate-y-2 hover:shadow-xl">
-            <div class="h-48 bg-gradient-to-br from-pink-600 to-purple-600 relative">
+          <div class="bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600/10 rounded-2xl overflow-hidden transition transform hover:-translate-y-2 hover:shadow-xl">
+            <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');">
               <div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg px-3 py-1 text-sm">{{ event.participants.count }} Participants</div>
             </div>
             <div class="p-6">

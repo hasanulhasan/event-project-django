@@ -1,11 +1,11 @@
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-</head>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
   <body class="min-h-screen bg-gray-50">
     <nav
       class="fixed top-0 w-full z-50 backdrop-blur bg-slate-900/80 border-b border-slate-800"
@@ -71,33 +71,154 @@
                 <p class="text-sm font-medium text-gray-600">
                   Total Participants
                 </p>
-                <p class="text-2xl font-bold text-gray-900">{{total_participants}}</p>
+                <p class="text-2xl font-bold text-gray-900">
+                  {{total_participants}}
+                </p>
               </div>
             </div>
           </div>
-          <div class="bg-white rounded-lg shadow-sm border p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-gray-600">Total Events</p>
-                <p class="text-2xl font-bold text-gray-900">{{total_events}}</p>
+          <a href="{% url 'dashboard' %}?type=all">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-gray-600">Total Events</p>
+                  <p class="text-2xl font-bold text-gray-900">
+                    {{total_events}}
+                  </p>
+                </div>
               </div>
+            </div>
+          </a>
+          <a href="{% url 'dashboard' %}?type=upcoming">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-gray-600">
+                    Upcoming Events
+                  </p>
+                  <p class="text-2xl font-bold text-gray-900">
+                    {{upcoming_events}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <a href="{% url 'dashboard' %}?type=past">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-gray-600">Past Events</p>
+                  <p class="text-2xl font-bold text-gray-900">
+                    {{past_events}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm border mb-4">
+          <div class="p-6 border-b border-gray-200">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+            >
+              <h2 class="text-xl font-semibold text-gray-900">
+                Todays Events List
+              </h2>
             </div>
           </div>
-          <div class="bg-white rounded-lg shadow-sm border p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-gray-600">Upcoming Events</p>
-                <p class="text-2xl font-bold text-gray-900">{{upcoming_events}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg shadow-sm border p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-gray-600">Past Events</p>
-                <p class="text-2xl font-bold text-gray-900">{{past_events}}</p>
-              </div>
-            </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Event Name
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Date & Time
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Location
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Participants
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Category
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Status
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {% for event in today_events %}
+                <tr class="hover:bg-gray-50">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap font-medium text-gray-900"
+                  >
+                    {{ event.name }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div>{{ event.date }}</div>
+                    <div class="text-xs text-gray-400">{{ event.time }}</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ event.location }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <div class="flex items-center">
+                      {{ event.participants.count }}
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full"
+                    >
+                      {{ event.category }}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-600 rounded-full"
+                    >
+                      Upcoming
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                    Edit | Delete
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td
+                    colspan="7"
+                    class="text-center text-gray-500 font-semibold my-2 py-2"
+                  >
+                    There is no event today.
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -186,7 +307,9 @@
                     {{ event.location }}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    <div class="flex items-center">{{ event.participants.count }} </div>
+                    <div class="flex items-center">
+                      {{ event.participants.count }}
+                    </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span
@@ -206,9 +329,9 @@
                 </tr>
                 {% endfor %}
 
-            
                 <!-- Event 2 -->
-                {% comment %} <tr class="hover:bg-gray-50">
+                {% comment %}
+                <tr class="hover:bg-gray-50">
                   <td
                     class="px-6 py-4 whitespace-nowrap font-medium text-gray-900"
                   >
@@ -239,7 +362,8 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
                     Edit | Delete
                   </td>
-                </tr> {% endcomment %}
+                </tr>
+                {% endcomment %}
               </tbody>
             </table>
           </div>
