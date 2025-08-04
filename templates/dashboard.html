@@ -237,7 +237,7 @@
                     class="pl-4 pr-4 py-2 border border-gray-300 rounded-lg"
                   />
                 </div>
-                <a href="/form.html">
+                <a href="{% url 'create-event' %}">
                   <button
                     class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg"
                   >
@@ -324,7 +324,14 @@
                     >
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                    Edit | Delete
+                    Edit |
+                    <form
+                      action="{% url 'delete-event' event.id %}"
+                      method="POST"
+                    >
+                      {% csrf_token %}
+                      <button type="submit" class="cursor-pointer"> Delete </button>
+                    </form>
                   </td>
                 </tr>
                 {% endfor %}

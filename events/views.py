@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from events.models import Event, Category, Participant
 import datetime
 from django.db.models import Q
+from events.forms import EventForm
+from django.contrib import messages
 
 def home(request):
     query = request.GET.get('q', '')
@@ -64,3 +66,24 @@ def dashboard(request):
     }
 
     return render(request, "dashboard.html", context)
+
+def create_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # or wherever you want to redirect
+    else:
+        form = EventForm()
+
+    return render(request, 'create_event.html', {'form': form})
+
+def delete_event(request, id):
+    event = Event.objects.get(id=id)
+    if request.method == 'POST':
+        event.delete()
+        messages.success(request, "Event deleted successfully")
+        return redirect('dashboard')
+    else:
+        messages.error(request, "Something went wrong, please try again.")
+        return redirect('dashboard')
