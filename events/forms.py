@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from events.models import Event
+from events.models import Event, Participant
 
 # forms.py
 
@@ -34,3 +34,8 @@ class EventForm(StyledFormMixin, forms.ModelForm):
             'time': forms.TimeInput(attrs={'type': 'time'}),
             'participants': forms.CheckboxSelectMultiple(),
         }
+
+class AddParticipantForm(StyledFormMixin, forms.ModelForm):
+    class Meta:
+        model = Participant
+        fields = ['name', 'email']

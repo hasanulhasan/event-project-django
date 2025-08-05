@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from events.models import Event, Category, Participant
 import datetime
 from django.db.models import Q
-from events.forms import EventForm
+from events.forms import EventForm, AddParticipantForm
 from django.contrib import messages
 
 def home(request):
@@ -72,11 +72,24 @@ def create_event(request):
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')  # or wherever you want to redirect
+            return redirect('dashboard')  # or wherever you want to redirect
     else:
         form = EventForm()
 
     return render(request, 'create_event.html', {'form': form})
+
+def update_event(request, id):
+    event = Event.objects.get(id=id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Event updated successfully")
+            return redirect('dashboard')
+    else:
+        form = EventForm(instance=event)
+
+    return render(request, 'update_event.html', {'form': form, 'event': event})
 
 def delete_event(request, id):
     event = Event.objects.get(id=id)
@@ -87,3 +100,17 @@ def delete_event(request, id):
     else:
         messages.error(request, "Something went wrong, please try again.")
         return redirect('dashboard')
+    
+def add_participant(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+
+    if request.method == 'POST':
+        form = AddParticipantForm(request.POST)
+        if form.is_valid():
+            participant = form.save()
+            participant.events.add(event)
+            return redirect('details', id=event.id)
+    else:
+        form = AddParticipantForm()
+
+    return render(request, 'add_participant.html', {'form': form, 'event': event})

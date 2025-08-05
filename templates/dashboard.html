@@ -204,7 +204,14 @@
                     </span>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                    Edit | Delete
+                   <a href='{% url "edit-event" event.id %}'>Edit </a>  | 
+                   <form
+                      action="{% url 'delete-event' event.id %}"
+                      method="POST"
+                    >
+                      {% csrf_token %}
+                      <button type="submit" class="cursor-pointer"> Delete </button>
+                    </form>
                   </td>
                 </tr>
                 {% empty %}
@@ -230,13 +237,6 @@
             >
               <h2 class="text-xl font-semibold text-gray-900">Events List</h2>
               <div class="flex flex-col sm:flex-row gap-3">
-                <div class="relative">
-                  <input
-                    type="text"
-                    placeholder="Search events..."
-                    class="pl-4 pr-4 py-2 border border-gray-300 rounded-lg"
-                  />
-                </div>
                 <a href="{% url 'create-event' %}">
                   <button
                     class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg"
@@ -324,7 +324,10 @@
                     >
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                    Edit |
+                    <a href='{% url "edit-event" event.id %}'> 
+                      Edit 
+                    </a>
+                    |
                     <form
                       action="{% url 'delete-event' event.id %}"
                       method="POST"
