@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from events.models import Event, Category, Participant
 import datetime
 from django.db.models import Q
-from events.forms import EventForm, AddParticipantForm
+from events.forms import EventForm, AddParticipantForm, CategoryForm
 from django.contrib import messages
 
 def home(request):
@@ -114,3 +114,13 @@ def add_participant(request, event_id):
         form = AddParticipantForm()
 
     return render(request, 'add_participant.html', {'form': form, 'event': event})
+
+def add_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # or wherever you want to redirect
+    else:
+        form = CategoryForm()
+    return render(request, 'create-category.html', {'form': form})

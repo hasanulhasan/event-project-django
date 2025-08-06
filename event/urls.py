@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from events.views import home, details, dashboard, create_event, delete_event, update_event, add_participant
+from events.views import home, details, dashboard, create_event, delete_event, update_event, add_participant, add_category
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete-event/<int:id>/', delete_event, name='delete-event'),
     path('edit-event/<int:id>/', update_event, name='edit-event'),
     path('add-participant/<int:event_id>/', add_participant, name='add-participant'),
+    path('add-category', add_category, name='add-category'),
 ]

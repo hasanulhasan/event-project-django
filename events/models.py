@@ -18,7 +18,6 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.name} on {self.date}"
 
-
 class Participant(models.Model):
     name = models.CharField(max_length=150)
     email = models.EmailField(unique=True)
