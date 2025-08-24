@@ -22,6 +22,15 @@
             <a href="#" class="text-slate-300 hover:text-white transition-colors">Events</a>
             <a href="#" class="text-slate-300 hover:text-white transition-colors">About</a>
             <a href='{% url "dashboard" %}' class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
+            {% if user.is_authenticated %}
+            <form class="text-slate-300 hover:text-white transition-colors flex justify-center items-center" method="post" action={% url 'sign-out' %}>
+              {% csrf_token %}
+              <button type="submit" class="">Sign Out</button>
+            </form>
+            {% else %}
+            <a href='{% url "sign-in" %}' class="text-slate-300 hover:text-white transition-colors">Sign In</a>
+            <a href='{% url "sign-up" %}' class="text-slate -300 hover:text-white transition-colors">Sign Up</a>
+            {% endif %}
           </div>
           <div class="flex items-center space-x-4">
             <button class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 px-6 py-2 rounded-lg font-medium shadow-lg">Get Started</button>

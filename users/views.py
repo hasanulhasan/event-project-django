@@ -1,3 +1,38 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from users.forms import CustomRegistrationForm, CustomLoginForm
+from django.contrib import messages
+from django.contrib.auth import login, logout
 
-# Create your views here.
+def sign_up(request):
+    if request.method == 'GET':
+        form = CustomRegistrationForm()
+    if request.method == 'POST':
+        form = CustomRegistrationForm(request.POST)
+        if form.is_valid():
+            # user = form.save(commit=False)
+            # user.set_password(form.cleaned_data.get('password1'))
+            # user.is_active = False  # User is inactive until they activate their account
+            # user.save()
+
+            form.save()
+            messages.success(request, 'Registration successful!')            
+            return redirect('sign-in')
+        else:
+            print("Form is not valid")
+    return render(request, 'registration/signup.html', {"form": form})
+
+def sign_in(request):
+    form = CustomLoginForm()    
+    if request.method == 'POST':
+        form = CustomLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            print("User logged in successfully", user)
+            return redirect('home')
+    return render(request, 'registration/login.html', {"form": form})
+
+def sign_out(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')

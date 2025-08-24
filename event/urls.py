@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from events.views import home, details, dashboard, create_event, delete_event, update_event, add_participant, add_category
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('edit-event/<int:id>/', update_event, name='edit-event'),
     path('add-participant/<int:event_id>/', add_participant, name='add-participant'),
     path('add-category', add_category, name='add-category'),
+    path("users/", include("users.urls")),
 ]

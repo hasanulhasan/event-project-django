@@ -3,26 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Participant</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
   </head>
   <body>
     <div class="mt-10 mx-auto w-1/2 border p-6 rounded-lg shadow-lg">
-      <h2 class="font-bold text-center text-2xl mb-3">
-        Add Participant to "{{ event.name }}"
-      </h2>
-      <div>
-        {% if message %}
-        <p>{{ message }}</p>
-        {% endif %}
-      </div>
-      <form method="post" class="space-y-4">
-        {% csrf_token %} {{ form.as_p }}
+      <h1 class="font-bold text-center text-2xl mb-3">Welcome to Login page</h1>
+      {% if messages %} {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %} {% endif %}
+      <form action="" method="POST">
+        {% csrf_token %} {{form.as_p}}
         <button
-          type="submit"
           class="bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md font-bold text-white"
+          type="submit"
         >
-          Add Participant
+          Login
         </button>
       </form>
     </div>
