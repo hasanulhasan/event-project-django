@@ -1,28 +1,39 @@
-# forms.py
 from django import forms
 from events.models import Event, Participant, Category
 
-# forms.py
-
 class StyledFormMixin:
-    """
-    Add Tailwind CSS classes to form fields for consistent styling.
-    """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """ Mixing to apply style to form field"""
 
+    default_classes = "border-2 border-gray-300 w-full px-2 py-2 rounded-sm shadow-sm focus:outline-none focus:border-rose-500 focus:ring-rose-500 mb-3"
+
+    def apply_styled_widgets(self):
         for field_name, field in self.fields.items():
-            widget = field.widget
-
-            base_classes = "w-full block rounded-md shadow-sm border-gray-300 focus:ring focus:ring-indigo-200 text-sm"
-            if isinstance(widget, forms.CheckboxInput):
-                widget.attrs['class'] = "rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-            elif isinstance(widget, forms.RadioSelect):
-                widget.attrs['class'] = "text-indigo-600 focus:ring-indigo-500"
-            elif isinstance(widget, (forms.CheckboxSelectMultiple, forms.SelectMultiple)):
-                widget.attrs['class'] = "w-full rounded border-gray-300 text-sm shadow-sm focus:ring focus:ring-indigo-200"
+            if isinstance(field.widget, forms.TextInput):
+                field.widget.attrs.update({
+                    'class': self.default_classes,
+                    'placeholder': f"Enter {field.label.lower()}"
+                })
+            elif isinstance(field.widget, forms.Textarea):
+                field.widget.attrs.update({
+                    'class': f"{self.default_classes} resize-none",
+                    'placeholder':  f"Enter {field.label.lower()}",
+                    'rows': 5
+                })
+            elif isinstance(field.widget, forms.SelectDateWidget):
+                print("Inside Date")
+                field.widget.attrs.update({
+                    "class": "border-2 border-gray-300 p-3 rounded-lg shadow-sm focus:outline-none focus:border-rose-500 focus:ring-rose-500"
+                })
+            elif isinstance(field.widget, forms.CheckboxSelectMultiple):
+                print("Inside checkbox")
+                field.widget.attrs.update({
+                    'class': "space-y-2"
+                })
             else:
-                widget.attrs['class'] = widget.attrs.get('class', '') + f" {base_classes}"
+                print("Inside else")
+                field.widget.attrs.update({
+                    'class': self.default_classes
+                })
 
 
 class EventForm(StyledFormMixin, forms.ModelForm):
@@ -34,13 +45,24 @@ class EventForm(StyledFormMixin, forms.ModelForm):
             'time': forms.TimeInput(attrs={'type': 'time'}),
             'participants': forms.CheckboxSelectMultiple(),
         }
+    def __init__(self, *arg, **kwarg):
+        super().__init__(*arg, **kwarg)
+        self.apply_styled_widgets()    
 
 class AddParticipantForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = Participant
         fields = ['name', 'email']
 
-class CategoryForm(forms.ModelForm):
+    def __init__(self, *arg, **kwarg):
+        super().__init__(*arg, **kwarg)
+        self.apply_styled_widgets()
+        
+class CategoryForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'description']
+
+    def __init__(self, *arg, **kwarg):
+        super().__init__(*arg, **kwarg)
+        self.apply_styled_widgets()

@@ -1,21 +1,31 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Event</title>
-</head>
-<body>
-    <h1 class="text-xl font-semibold mb-4 text-center">Create New Event</h1>
-<div class="max-w-md mx-auto bg-white p-6 rounded shadow-lg flex justify-center">
-  <form method="post" class="space-y-4">
-  {% csrf_token %}
-  {{ form.as_p }}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body>
+    <div class="mt-10 mx-auto w-1/2 border p-6 rounded-lg shadow-lg">
+      <h1 class="font-bold text-center text-2xl mb-3">Create New Event</h1>
+      <div>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+      </div>
+      <div>
+        <form method="post" class="space-y-4">
+          {% csrf_token %} {{ form.as_p }}
 
-  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-    Create Event
-  </button>
-</form>
-</div>
-</body>
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md font-bold text-white"
+          >
+            Create Event
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

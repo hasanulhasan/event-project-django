@@ -1,22 +1,27 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Event</title>
-</head>
-<body>
-    <h2 class="text-2xl font-bold mb-4">Edit Event: {{ event.name }}</h2>
-
-<div class="max-w-md mx-auto bg-white p-6 rounded shadow-lg flex justify-center"> 
-    <form method="post" class="space-y-4">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-    Save Changes
-  </button>
-</form>
-</div>
-
-</body>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body>
+    <div class="mt-10 mx-auto w-1/2 border p-6 rounded-lg shadow-lg">
+      <h2 class="font-bold text-center text-2xl mb-3">
+        Edit Event: {{ event.name }}
+      </h2>
+      <div>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+      </div>
+      <form method="post" class="space-y-4">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md font-bold text-white">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  </body>
 </html>
