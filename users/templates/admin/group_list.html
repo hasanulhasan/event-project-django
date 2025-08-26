@@ -1,0 +1,44 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group List</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body>
+    <main class="mt-10 mx-auto w-2/3 border p-6 rounded-lg shadow-lg">
+      <h2 class="font-bold text-center text-2xl mb-3">
+        Groups and Permissions
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2">Group Name</th>
+              <th class="border border-gray-300 px-4 py-2">Permissions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for group in groups %}
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border border-gray-300 px-4 py-2 font-medium">
+                {{ group.name }}
+              </td>
+              <td class="border border-gray-300 px-4 py-2">
+                <ul class="list-disc list-inside">
+                  {% for permission in group.permissions.all %}
+                  <li>{{ permission.name }} -- {{permission.codename}}</li>
+                  {% empty %}
+                  <li class="text-gray-500 italic">No permissions assigned</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

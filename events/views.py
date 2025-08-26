@@ -72,6 +72,7 @@ def create_event(request):
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Event created successfully")
             return redirect('dashboard')  # or wherever you want to redirect
     else:
         form = EventForm()
@@ -109,6 +110,7 @@ def add_participant(request, event_id):
         if form.is_valid():
             participant = form.save()
             participant.events.add(event)
+            messages.success(request, f"Participant '{participant.name}' added to event '{event.name}'.")
             return redirect('details', id=event.id)
     else:
         form = AddParticipantForm()
@@ -120,6 +122,7 @@ def add_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Category created successfully")
             return redirect('dashboard')  # or wherever you want to redirect
     else:
         form = CategoryForm()
